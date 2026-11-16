@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michael Varón | Tarjeta digital</title>
+<meta name="description" content="Michael Varón. Máster en Inteligencia Artificial Generativa Low Code, Universidad Complutense de Madrid.">
+<meta name="theme-color" content="#002941">
+<meta property="og:title" content="Michael Varón">
+<meta property="og:description" content="La inteligencia artificial no reemplaza al humano, amplifica su potencial.">
+<meta property="og:image" content="foto.jpg">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,800;1,800&display=swap">
+<style>
+  :root {
+    --navy: #002941; --mint: #CFE8E1; --coral: #FD6E6E; --petrol: #1D5C6E;
+    /* Unidad de escala: en pantallas bajas todo se reduce en proporción
+       para que la tarjeta completa quepa sin hacer scroll. */
+    --k: min(1px, calc(100vh / 640));
+    --k: min(1px, calc(100dvh / 640));
+    /* En pantallas altas, la mitad del espacio sobrante agranda la franja superior
+       y la otra mitad queda entre los botones y la frase final. */
+    --vh: 100vh; --vh: 100dvh;
+    --band: max(calc(var(--k) * 190), calc(var(--k) * 190 + (var(--vh) - var(--k) * 640) / 2));
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: #CFE8E1; color: var(--navy);
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex; justify-content: center;
+  }
+  .card {
+    width: 100%; max-width: 430px; min-height: 100vh; min-height: 100dvh;
+    position: relative; display: flex; flex-direction: column; overflow: hidden;
+    background:
+      radial-gradient(95% 42% at 50% 36%, rgba(255,255,255,.62) 0%, rgba(255,255,255,0) 72%),
+      linear-gradient(180deg, #CFE8E1 40%, #BFDDD5 100%);
+  }
+  .texture {
+    position: absolute; left: 0; width: 100%; top: var(--band); height: calc(100% - var(--band));
+    opacity: .2; pointer-events: none;
+    -webkit-mask-image: radial-gradient(62% 46% at 50% 40%, rgba(0,0,0,.12) 0%, rgba(0,0,0,.12) 55%, #000 100%);
+    mask-image: radial-gradient(62% 46% at 50% 40%, rgba(0,0,0,.12) 0%, rgba(0,0,0,.12) 55%, #000 100%);
+  }
+  .band { position: relative; z-index: 1; flex: none; height: var(--band); background: var(--navy); overflow: hidden; }
+  .band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .band::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,41,65,.84) 0%, rgba(0,41,65,.58) 48%, rgba(0,41,65,.42) 100%);
+  }
+  .seal {
+    position: absolute; z-index: 1; left: 50%; top: calc((var(--band) - var(--k) * 68) / 2 - var(--k) * 39); transform: translateX(-50%);
+    width: calc(var(--k) * 78); height: calc(var(--k) * 78);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .seal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .seal .mv {
+    position: relative; display: flex; align-items: baseline; padding-right: 1px;
+    font-family: 'Playfair Display', Georgia, serif; font-weight: 800;
+    font-size: calc(var(--k) * 31); line-height: 1;
+  }
+  .seal .m { color: #fff; }
+  .seal .v { color: var(--mint); font-style: italic; margin-left: calc(var(--k) * -7); }
+  .body {
+    position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; align-items: center;
+    padding: 0 calc(var(--k) * 28); margin-top: calc(var(--k) * -68);
+  }
+  .photo {
+    flex: none; width: calc(var(--k) * 136); height: calc(var(--k) * 136);
+    border-radius: 50%; object-fit: cover; border: calc(var(--k) * 4) solid #fff;
+    box-shadow: 0 14px 28px rgba(0,41,65,.22);
+  }
+  h1 {
+    margin: calc(var(--k) * 16) 0 0; text-align: center; text-transform: uppercase;
+    font-family: 'Cinzel', Georgia, serif; font-weight: 600;
+    font-size: calc(var(--k) * 25); line-height: 1.15; letter-spacing: calc(var(--k) * 2.5);
+  }
+  .title {
+    margin: calc(var(--k) * 12) 0 0; text-align: center; text-transform: uppercase;
+    font-size: calc(var(--k) * 10.5); font-weight: 600; letter-spacing: calc(var(--k) * 1.5); line-height: 1.6;
+  }
+  .school { margin: calc(var(--k) * 5) 0 0; text-align: center; font-size: calc(var(--k) * 12); font-weight: 500; color: var(--petrol); }
+  .btn {
+    flex: none; align-self: stretch; display: flex; align-items: center; justify-content: center;
+    gap: calc(var(--k) * 10); border-radius: calc(var(--k) * 14);
+    color: var(--navy); text-decoration: none; -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease, filter .12s ease;
+  }
+  .btn:active { transform: scale(.98); filter: brightness(.96); }
+  .btn svg { width: calc(var(--k) * 17); height: calc(var(--k) * 17); }
+  .btn.save {
+    margin-top: calc(var(--k) * 22); height: calc(var(--k) * 52); background: var(--coral);
+    font-size: calc(var(--k) * 14); font-weight: 700; letter-spacing: .3px;
+    position: relative; overflow: hidden;
+    animation: halo 3.2s ease-in-out infinite;
+  }
+  .btn.save .shine {
+    position: absolute; top: 0; bottom: 0; left: 0; width: 34%; pointer-events: none;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.42) 50%, rgba(255,255,255,0) 100%);
+    animation: shine 4.8s ease-in-out infinite;
+  }
+  .btn.save svg { position: relative; animation: nudge 4.8s ease-in-out infinite; }
+  .btn.save span:not(.shine) { position: relative; }
+  @keyframes shine { 0%,62% { transform: translateX(-160%) skewX(-20deg); } 82%,100% { transform: translateX(420%) skewX(-20deg); } }
+  @keyframes halo {
+    0%,100% { box-shadow: 0 10px 22px rgba(253,110,110,.30), 0 0 0 0 rgba(253,110,110,.45); }
+    50% { box-shadow: 0 12px 26px rgba(253,110,110,.36), 0 0 0 7px rgba(253,110,110,0); }
+  }
+  @keyframes nudge { 0%,70%,100% { transform: translateX(0); } 76% { transform: translateX(2px); } 82% { transform: translateX(-1px); } 88% { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { .btn.save, .btn.save * { animation: none !important; } }
+  .btn.in {
+    margin-top: calc(var(--k) * 10); height: calc(var(--k) * 48); background: #fff; box-shadow: 0 6px 16px rgba(0,41,65,.08);
+    font-size: calc(var(--k) * 13); font-weight: 600; letter-spacing: .2px;
+  }
+  .quote { margin: auto 0 0; padding: calc(var(--k) * 18) 0 calc(var(--k) * 26); display: flex; flex-direction: column; align-items: center; gap: calc(var(--k) * 12); }
+  .quote i { display: block; width: calc(var(--k) * 150); height: 1px; background: var(--petrol); opacity: .45; }
+  .quote p {
+    margin: 0; text-align: center; text-transform: uppercase;
+    font-size: calc(var(--k) * 9.5); font-weight: 400; letter-spacing: calc(var(--k) * 1.4); line-height: 1.7; color: var(--petrol);
+  }
+  .quote strong { font-weight: 700; color: var(--navy); }
+  @media (min-width: 520px) {
+    body { align-items: center; padding: 24px 0; }
+    .card { min-height: 0; height: min(760px, calc(100vh - 48px)); border-radius: 22px; box-shadow: 0 24px 60px rgba(0,41,65,.22); }
+    :root { --k: min(1px, calc((100vh - 48px) / 640)); --vh: min(760px, calc(100vh - 48px)); }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <svg class="texture" viewBox="0 0 390 450" preserveAspectRatio="xMidYMin slice" fill="none" stroke="#1D5C6E" stroke-width="0.9" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M0.0 253.4 L2.0 250.0 L4.7 245.0 L5.0 244.3 L6.9 240.0 L8.8 235.0 L10.0 231.4 L10.4 230.0 L11.7 225.0 L12.7 220.0 L13.4 215.0 L13.8 210.0 L13.7 205.0 L13.1 200.0 L11.9 195.0 L10.0 190.2 L9.9 190.0 L6.5 185.0 L5.0 183.3 L1.0 180.0 L0.0 179.4 M86.1 450.0 L85.0 445.4 L84.9 445.0 L82.6 440.0 L80.0 435.8 L79.4 435.0 L75.0 430.2 L74.8 430.0 L70.0 426.4 L67.6 425.0 L65.0 423.7 L60.0 421.8 L55.0 420.6 L50.0 420.2 L45.0 420.5 L40.0 421.8 L35.0 424.1 L33.5 425.0 L30.0 427.6 L27.6 430.0 L25.0 433.0 L23.6 435.0 L20.7 440.0 L20.0 441.6 L18.7 445.0 L17.3 450.0 M0.0 292.8 L5.0 286.4 L9.1 280.0 L11.9 275.0 L15.0 269.2 L19.3 260.0 L21.4 255.0 L25.0 245.7 L27.0 240.0 L30.0 230.7 L31.6 225.0 L34.1 215.0 L35.1 210.0 L36.6 200.0 L37.2 190.0 L36.3 180.0 L35.0 174.4 L30.5 165.0 L26.4 160.0 L20.3 155.0 L15.0 152.0 L10.0 149.7 L0.0 146.7 M110.1 450.0 L109.3 445.0 L106.1 435.0 L103.6 430.0 L100.0 424.4 L95.0 418.5 L90.0 413.7 L85.0 409.7 L77.8 405.0 L70.0 400.8 L65.0 398.7 L55.0 395.3 L50.0 394.2 L40.0 393.2 L30.0 394.3 L25.0 396.0 L17.9 400.0 L12.1 405.0 L7.8 410.0 L4.3 415.0 L0.0 422.8 M129.2 450.0 L127.6 440.0 L125.0 431.6 L122.0 425.0 L119.1 420.0 L115.0 414.5 L110.0 408.9 L105.0 404.1 L100.0 399.9 L93.4 395.0 L85.7 390.0 L80.0 386.6 L75.0 383.8 L67.9 380.0 L60.0 376.1 L55.0 373.7 L46.9 370.0 L40.0 366.9 L35.0 364.7 L25.0 360.2 L20.0 357.6 L15.0 354.8 L10.0 349.6 L8.9 340.0 L10.0 335.0 L12.8 325.0 L15.0 318.8 L17.9 310.0 L20.0 304.2 L23.2 295.0 L25.0 290.0 L28.5 280.0 L30.3 275.0 L33.7 265.0 L35.5 260.0 L38.9 250.0 L40.6 245.0 L43.9 235.0 L45.6 230.0 L48.8 220.0 L50.3 215.0 L53.3 205.0 L55.0 198.8 L57.2 190.0 L59.2 180.0 L60.0 175.0 L60.7 165.0 L60.0 156.6 L58.2 150.0 L55.0 144.1 L50.0 138.7 L45.0 135.0 L35.0 130.1 L30.0 128.2 L20.0 125.1 L15.0 123.8 L5.0 121.4 M147.5 450.0 L146.5 440.0 L145.0 433.1 L142.3 425.0 L140.0 420.0 L135.0 412.0 L130.0 405.8 L125.0 400.6 L120.0 396.1 L115.0 392.1 L110.0 388.3 L105.0 384.8 L97.9 380.0 L90.1 375.0 L85.0 371.8 L80.0 368.5 L74.6 365.0 L67.3 360.0 L60.8 355.0 L55.1 350.0 L50.4 345.0 L46.7 340.0 L43.8 335.0 L40.4 325.0 L39.6 320.0 L39.2 310.0 L40.0 300.1 L40.7 295.0 L42.6 285.0 L45.0 275.3 L46.4 270.0 L49.3 260.0 L50.9 255.0 L54.2 245.0 L55.9 240.0 L59.5 230.0 L61.3 225.0 L65.0 215.5 L67.2 210.0 L70.0 203.1 L73.5 195.0 L75.6 190.0 L80.0 180.3 L82.5 175.0 L85.0 169.7 L89.7 160.0 L92.2 155.0 L95.0 149.2 L99.4 140.0 L101.6 135.0 L105.0 126.1 L106.6 120.0 L107.0 110.0 L105.0 104.9 L97.0 100.0 L90.0 99.2 L80.0 99.5 L73.1 100.0 L65.0 100.5 L55.0 100.7 L45.0 100.4 L39.1 100.0 L30.0 99.0 L20.0 97.4 L10.0 95.1 L5.0 93.7 M167.3 450.0 L167.1 440.0 L165.8 430.0 L164.6 425.0 L160.8 415.0 L158.0 410.0 L154.4 405.0 L150.0 399.9 L144.9 395.0 L138.9 390.0 L132.1 385.0 L125.0 380.3 L120.0 377.0 L115.0 373.9 L108.9 370.0 L101.0 365.0 L95.0 361.0 L90.0 357.5 L85.0 353.8 L80.0 349.7 L74.8 345.0 L70.0 339.8 L65.0 333.1 L60.6 325.0 L58.7 320.0 L56.5 310.0 L55.8 300.0 L56.3 290.0 L57.6 280.0 L59.7 270.0 L61.0 265.0 L63.8 255.0 L65.4 250.0 L69.0 240.0 L70.9 235.0 L75.0 225.4 L77.5 220.0 L80.0 214.8 L85.0 205.3 L88.0 200.0 L91.1 195.0 L95.0 188.9 L100.0 181.8 L105.0 175.3 L109.3 170.0 L113.5 165.0 L117.8 160.0 L122.1 155.0 L126.4 150.0 L130.4 145.0 L135.0 138.9 L140.0 131.3 L143.6 125.0 L146.0 120.0 L150.0 110.0 L151.5 105.0 L153.7 95.0 L155.0 85.0 L155.2 80.0 L155.0 73.4 L153.9 65.0 L151.1 55.0 L148.9 50.0 L145.0 43.6 L140.0 37.9 L135.0 33.7 L128.6 30.0 L120.0 26.9 L110.0 26.4 L100.0 29.5 L95.0 32.2 L90.0 35.8 L84.7 40.0 L78.5 45.0 L71.8 50.0 L65.0 54.4 L60.0 57.1 L53.0 60.0 L45.0 62.1 L35.0 63.0 L25.0 61.7 L19.5 60.0 L10.9 55.0 L5.8 50.0 L2.5 45.0 L0.0 39.2 M390.0 434.7 L385.0 434.8 L380.0 434.9 L375.0 434.9 L370.0 434.8 L365.0 434.7 L360.0 434.5 L355.0 434.4 L350.0 434.3 L345.0 434.4 L340.0 434.5 L335.0 434.7 L332.5 435.0 L330.0 435.3 L325.0 436.1 L320.0 437.3 L315.0 439.3 L313.6 440.0 L310.0 442.1 L306.2 445.0 L305.0 446.1 L301.3 450.0 M193.0 450.0 L194.5 440.0 L195.1 435.0 L196.1 425.0 L196.1 415.0 L195.0 408.8 L191.1 400.0 L186.7 395.0 L180.0 390.0 L175.0 387.0 L170.0 384.3 L161.6 380.0 L155.0 377.0 L150.0 374.6 L140.4 370.0 L135.0 367.4 L130.0 364.9 L120.9 360.0 L115.0 356.7 L110.0 353.6 L104.5 350.0 L97.8 345.0 L91.9 340.0 L86.9 335.0 L82.7 330.0 L79.2 325.0 L75.0 316.6 L72.7 310.0 L70.8 300.0 L70.4 290.0 L71.1 280.0 L72.8 270.0 L75.0 260.9 L76.8 255.0 L80.0 245.7 L82.3 240.0 L85.0 234.0 L89.5 225.0 L92.4 220.0 L95.4 215.0 L100.0 208.1 L105.0 201.3 L110.0 195.2 L114.6 190.0 L119.3 185.0 L124.2 180.0 L129.3 175.0 L134.3 170.0 L139.2 165.0 L143.8 160.0 L148.0 155.0 L151.9 150.0 L155.4 145.0 L160.0 137.4 L163.8 130.0 L166.0 125.0 L169.9 115.0 L171.5 110.0 L174.2 100.0 L175.4 95.0 L177.4 85.0 L179.0 75.0 L180.0 66.3 L180.5 60.0 L180.8 50.0 L180.3 40.0 L179.7 35.0 L177.8 25.0 L175.0 16.4 L172.3 10.0 L169.8 5.0 M265.0 333.2 L261.5 335.0 L260.0 335.9 L255.6 340.0 L255.0 340.7 L252.1 345.0 L250.0 348.6 L249.3 350.0 L247.6 355.0 L246.5 360.0 L246.5 365.0 L248.0 370.0 L250.0 372.8 L252.8 375.0 L255.0 376.2 L260.0 377.2 L265.0 376.8 L269.6 375.0 L270.0 374.8 L275.0 370.3 L275.2 370.0 L278.0 365.0 L280.0 360.1 L280.0 360.0 L280.9 355.0 L281.2 350.0 L280.7 345.0 L280.0 342.0 L279.2 340.0 L275.7 335.0 L275.0 334.3 L270.0 332.6 L265.0 333.2 M272.2 0.0 L275.0 0.8 L280.0 2.3 L285.0 3.9 L288.6 5.0 L290.0 5.4 L295.0 6.9 L300.0 8.4 L305.0 9.8 L305.6 10.0 L310.0 11.2 L315.0 12.6 L320.0 13.9 L324.1 15.0 L325.0 15.2 L330.0 16.5 L335.0 17.7 L340.0 18.8 L345.0 19.9 L345.7 20.0 L350.0 20.8 L355.0 21.7 L360.0 22.5 L365.0 23.2 L370.0 23.7 L375.0 24.0 L380.0 24.1 L385.0 24.0 L390.0 23.5 M390.0 406.0 L380.0 405.7 L374.3 405.0 L365.0 402.8 L357.6 400.0 L350.0 395.7 L345.0 391.7 L340.0 386.0 L336.3 380.0 L334.2 375.0 L331.3 365.0 L330.0 357.5 L329.1 350.0 L328.2 340.0 L327.5 330.0 L326.4 320.0 L325.0 311.4 L323.3 305.0 L320.0 297.2 L315.0 290.3 L310.0 286.0 L305.0 283.1 L296.3 280.0 L290.0 278.9 L280.0 278.5 L270.0 279.9 L265.0 281.3 L256.1 285.0 L250.0 288.6 L245.0 292.3 L240.0 296.6 L235.0 301.7 L230.0 307.4 L225.0 313.6 L220.0 320.0 L216.1 325.0 L212.1 330.0 L207.8 335.0 L203.0 340.0 L197.3 345.0 L190.0 349.8 L185.0 352.1 L175.0 354.8 L170.0 355.3 L160.5 355.0 L155.0 354.3 L145.0 352.0 L138.6 350.0 L130.0 346.6 L125.0 344.2 L117.4 340.0 L110.0 335.0 L105.0 330.9 L100.0 325.9 L95.2 320.0 L92.1 315.0 L89.6 310.0 L86.4 300.0 L85.0 290.1 L84.9 285.0 L85.1 280.0 L86.5 270.0 L88.9 260.0 L90.5 255.0 L94.4 245.0 L96.8 240.0 L100.0 233.9 L105.0 225.8 L109.1 220.0 L113.1 215.0 L117.4 210.0 L122.1 205.0 L127.2 200.0 L132.5 195.0 L138.1 190.0 L143.7 185.0 L149.1 180.0 L154.1 175.0 L158.7 170.0 L162.9 165.0 L166.6 160.0 L170.0 154.8 L175.0 145.8 L177.7 140.0 L180.0 134.6 L183.6 125.0 L185.2 120.0 L188.3 110.0 L190.0 103.8 L192.3 95.0 L194.9 85.0 L196.1 80.0 L198.5 70.0 L200.0 64.0 L202.2 55.0 L204.8 45.0 L206.1 40.0 L208.9 30.0 L210.3 25.0 L213.5 15.0 L215.3 10.0 L220.0 0.2 M390.0 134.5 L388.6 140.0 L386.0 150.0 L384.5 155.0 L381.6 165.0 L380.0 170.3 L376.9 180.0 L375.0 185.8 L371.8 195.0 L369.9 200.0 L365.9 210.0 L363.7 215.0 L360.0 222.5 L355.3 230.0 L351.1 235.0 L345.3 240.0 L340.0 243.0 L334.6 245.0 L325.0 247.1 L315.0 248.2 L305.0 248.8 L295.0 249.4 L286.1 250.0 L280.0 250.6 L270.0 252.0 L260.0 254.2 L255.0 255.7 L245.0 259.9 L240.0 262.7 L235.0 266.1 L230.0 270.2 L225.0 275.0 L220.0 280.6 L215.0 286.7 L210.0 293.2 L205.0 299.7 L200.8 305.0 L196.5 310.0 L191.8 315.0 L186.3 320.0 L180.0 324.6 L175.0 327.4 L168.3 330.0 L160.0 331.8 L150.0 332.0 L140.0 330.2 L135.0 328.6 L127.2 325.0 L120.0 320.4 L115.0 316.0 L110.0 310.3 L106.7 305.0 L104.3 300.0 L101.6 290.0 L101.0 280.0 L102.0 270.0 L104.5 260.0 L106.3 255.0 L110.0 246.9 L114.0 240.0 L117.4 235.0 L121.2 230.0 L125.5 225.0 L130.4 220.0 L135.9 215.0 L141.8 210.0 L148.0 205.0 L154.3 200.0 L160.0 195.3 L165.0 190.8 L170.0 185.7 L174.9 180.0 L178.5 175.0 L181.6 170.0 L185.0 163.8 L189.0 155.0 L191.0 150.0 L194.5 140.0 L196.1 135.0 L199.0 125.0 L200.4 120.0 L203.2 110.0 L205.0 103.8 L207.6 95.0 L210.0 87.1 L212.3 80.0 L215.0 72.6 L218.1 65.0 L220.3 60.0 L225.0 51.0 L228.8 45.0 L232.7 40.0 L237.6 35.0 L244.3 30.0 L250.0 27.1 L256.7 25.0 L265.0 23.6 L275.0 23.3 L285.0 24.1 L291.4 25.0 L300.0 26.5 L310.0 28.7 L315.4 30.0 L325.0 32.6 L333.4 35.0 L340.0 37.1 L348.7 40.0 L355.0 42.3 L361.8 45.0 L370.0 48.8 L375.0 51.5 L380.6 55.0 L386.6 60.0 M390.0 366.4 L385.0 365.2 L384.6 365.0 L380.0 362.5 L377.0 360.0 L375.0 357.9 L372.9 355.0 L370.3 350.0 L370.0 349.2 L368.7 345.0 L367.8 340.0 L367.3 335.0 L367.3 330.0 L367.7 325.0 L368.5 320.0 L369.8 315.0 L370.0 314.4 L371.8 310.0 L374.6 305.0 L375.0 304.5 L379.5 300.0 L380.0 299.6 L385.0 297.1 L390.0 296.0 M265.0 44.7 L275.0 42.5 L285.0 41.9 L295.0 42.5 L305.0 44.0 L310.0 45.1 L320.0 47.8 L326.5 50.0 L335.0 53.4 L340.0 55.8 L347.7 60.0 L354.9 65.0 L360.0 69.5 L364.8 75.0 L368.2 80.0 L370.7 85.0 L373.8 95.0 L375.0 104.0 L375.2 110.0 L375.0 116.5 L374.2 125.0 L372.5 135.0 L370.2 145.0 L368.9 150.0 L365.7 160.0 L363.9 165.0 L360.0 174.7 L357.5 180.0 L355.0 185.0 L350.0 193.4 L345.2 200.0 L340.8 205.0 L335.5 210.0 L330.0 214.1 L325.0 217.1 L318.7 220.0 L310.0 223.0 L301.4 225.0 L295.0 226.1 L285.0 227.4 L275.0 228.3 L265.0 229.1 L255.0 230.0 L250.0 230.5 L240.0 232.0 L230.0 234.4 L225.0 236.3 L218.0 240.0 L211.8 245.0 L207.2 250.0 L203.6 255.0 L200.0 260.5 L195.0 268.6 L191.1 275.0 L187.7 280.0 L184.1 285.0 L180.0 290.1 L175.0 295.1 L168.6 300.0 L160.0 304.2 L155.0 305.4 L145.0 305.2 L140.0 303.8 L133.4 300.0 L128.4 295.0 L125.0 289.4 L122.6 280.0 L123.0 270.0 L125.0 262.2 L128.3 255.0 L131.3 250.0 L135.1 245.0 L140.0 239.8 L145.6 235.0 L152.5 230.0 L160.0 225.2 L165.0 222.4 L170.0 219.4 L177.1 215.0 L183.5 210.0 L188.3 205.0 L191.9 200.0 L195.0 194.4 L198.9 185.0 L200.5 180.0 L203.3 170.0 L205.0 163.4 L206.9 155.0 L209.2 145.0 L210.3 140.0 L212.6 130.0 L215.0 120.0 L216.3 115.0 L219.2 105.0 L220.8 100.0 L224.4 90.0 L226.5 85.0 L230.0 77.6 L234.3 70.0 L237.7 65.0 L241.8 60.0 L246.8 55.0 L253.5 50.0 L260.0 46.6 L265.0 44.7 M285.0 59.5 L295.0 59.5 L300.0 60.0 L310.0 62.1 L318.8 65.0 L325.0 67.7 L330.0 70.4 L336.7 75.0 L342.3 80.0 L346.6 85.0 L350.0 90.1 L354.4 100.0 L355.7 105.0 L357.0 115.0 L356.9 125.0 L355.6 135.0 L354.6 140.0 L351.8 150.0 L350.0 155.2 L345.7 165.0 L342.9 170.0 L339.9 175.0 L335.0 181.5 L330.0 187.0 L325.0 191.4 L320.0 195.0 L310.7 200.0 L305.0 202.2 L295.0 204.8 L290.0 205.7 L280.0 206.5 L270.0 206.4 L260.0 205.4 L255.0 204.4 L245.0 201.1 L240.0 198.3 L235.0 194.2 L230.0 187.2 L227.3 180.0 L225.4 170.0 L225.0 162.2 L225.0 157.1 L225.3 150.0 L226.3 140.0 L227.9 130.0 L230.0 120.0 L231.3 115.0 L234.5 105.0 L236.5 100.0 L240.0 92.4 L244.2 85.0 L247.8 80.0 L252.1 75.0 L257.6 70.0 L265.0 65.2 L270.0 62.9 L280.0 60.1 L285.0 59.5 M285.0 79.0 L295.0 78.5 L304.7 80.0 L310.0 81.8 L316.6 85.0 L323.6 90.0 L328.5 95.0 L332.0 100.0 L335.0 106.1 L337.5 115.0 L338.2 125.0 L337.2 135.0 L335.0 143.5 L332.5 150.0 L330.0 155.2 L325.0 162.8 L320.0 168.6 L315.0 173.0 L310.0 176.5 L303.0 180.0 L295.0 182.6 L285.0 183.9 L275.0 183.2 L265.0 180.2 L260.0 177.3 L255.0 173.1 L250.0 166.4 L247.2 160.0 L245.0 151.0 L244.4 145.0 L244.5 135.0 L245.1 130.0 L247.1 120.0 L250.0 111.0 L252.7 105.0 L255.5 100.0 L260.0 93.8 L265.0 88.7 L270.0 84.9 L280.0 80.2 L285.0 79.0 M285.0 107.5 L290.0 106.1 L295.0 106.1 L300.0 107.6 L304.2 110.0 L305.0 110.6 L308.7 115.0 L310.0 117.4 L311.0 120.0 L312.0 125.0 L312.0 130.0 L311.0 135.0 L310.0 137.7 L308.9 140.0 L305.6 145.0 L305.0 145.7 L300.0 150.0 L300.0 150.0 L295.0 152.3 L290.0 153.4 L285.0 153.1 L280.0 151.4 L277.9 150.0 L275.0 147.3 L273.3 145.0 L271.0 140.0 L270.0 135.2 L270.0 135.0 L269.9 130.0 L270.0 129.7 L270.9 125.0 L272.7 120.0 L275.0 115.8 L275.5 115.0 L280.0 110.3 L280.5 110.0 L285.0 107.5"/></svg>
+  <div class="band">
+    <img src="franja.jpg" alt="">
+    <div class="seal" role="img" aria-label="Monograma MV">
+      <svg viewBox="0 0 78 78" fill="none" stroke="#CFE8E1" aria-hidden="true">
+        <circle cx="39" cy="39" r="33" stroke-width="1.2"/>
+        <circle cx="39" cy="39" r="37.5" stroke-width="0.8" stroke-dasharray="70 47.8" stroke-dashoffset="-23.9" opacity="0.55"/>
+      </svg>
+      <div class="mv" aria-hidden="true"><span class="m">M</span><span class="v">V</span></div>
+    </div>
+  </div>
+  <div class="body">
+    <img class="photo" src="foto.jpg" alt="Retrato de Michael Varón" width="480" height="480">
+    <h1>Michael Varón</h1>
+    <p class="title">Máster en Inteligencia Artificial<br>Generativa Low Code</p>
+    <p class="school">Universidad Complutense de Madrid</p>
+    <a class="btn save" href="michael-varon.vcf">
+      <span class="shine" aria-hidden="true"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="8" r="4"/><path d="M2.5 20a7.5 7.5 0 0 1 13-5M19 14v6M16 17h6"/></svg>
+      <span>Guardar contacto</span>
+    </a>
+    <a class="btn in" href="https://www.linkedin.com/in/michaelvaronmasteria/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1D5C6E" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v6M8 7.5v.5M12 17v-3.5a2.5 2.5 0 0 1 5 0V17M12 11v6"/></svg>
+      <span>Ver mi LinkedIn</span>
+    </a>
+    <div class="quote">
+      <i></i>
+      <p>La <strong>inteligencia</strong> artificial no reemplaza<br>al <strong>humano</strong>, amplifica su <strong>potencial</strong></p>
+    </div>
+  </div>
+</main>
+</body>
+</html>
